@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './styles.css';
 
 const apiKey = process.env.REACT_APP_FLICKR_API_KEY;
 
@@ -20,7 +21,7 @@ const FlyerGallery = () => {
     };
 
     return (
-        <div className="FlyerGallery" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gridGap: '10px' }}>
+        <div className="FlyerGallery">
             {images.map((image) => (
                  <img key={image.id} src={buildImageUrl(image)} alt={image.title} />
             ))}

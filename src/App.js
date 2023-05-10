@@ -5,8 +5,9 @@ function App() {
 
   return (
     <div className="App">
-      <h1>The Barchive</h1>
-      <FlyerGallery />
+      <div className="flyer-container">
+        <FlyerGallery />
+      </div>
     </div>
   );
 }
