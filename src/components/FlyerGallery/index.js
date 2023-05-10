@@ -5,6 +5,7 @@ const apiKey = process.env.REACT_APP_FLICKR_API_KEY;
 
 const FlyerGallery = () => {
     const [images, setImages] = useState ([]);
+    const [selectedImage, setSelectedImage] = useState(null);
 
     useEffect(() => {
         fetch(
@@ -17,14 +18,28 @@ const FlyerGallery = () => {
     }, []);
 
     const buildImageUrl = (image) => {
-        return `https://farm${image.farm}.staticflickr.com/${image.server}/${image.id}_${image.secret}_m.jpg`;
+        return `https://farm${image.farm}.staticflickr.com/${image.server}/${image.id}_${image.secret}_n.jpg`;
     };
 
     return (
-        <div className="FlyerGallery">
-            {images.map((image) => (
-                 <img key={image.id} src={buildImageUrl(image)} alt={image.title} />
-            ))}
+    <div className="FlyerGallery">
+        {images.map((image) => (
+            <button
+            key={image.id}
+            onClick={() => setSelectedImage(buildImageUrl(image))}
+            className="image-wrapper"
+            >
+            <img src={buildImageUrl(image)} alt={image.title} />
+            </button>           
+        ))}
+        {selectedImage && (
+            <div
+            className="modal"
+            onClick={() => setSelectedImage(null)}
+            >
+                <img className="modal-image" src={selectedImage} alt="Selected" />
+            </div>
+        )}
         </div>
     );
 };
