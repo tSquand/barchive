@@ -1,9 +1,14 @@
 .FlyerGallery {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 30px;
+    grid-gap: 20px;
     width: 100%;
     margin: 0 auto; 
+    background-color: lightcoral;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .image-wrapper {
@@ -32,3 +37,5 @@
     transform: scale(2);
   }
 
+  .sort-container {
+    text-align: right;  }

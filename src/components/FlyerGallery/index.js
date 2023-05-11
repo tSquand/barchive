@@ -6,6 +6,7 @@ const apiKey = process.env.REACT_APP_FLICKR_API_KEY;
 const FlyerGallery = () => {
     const [images, setImages] = useState ([]);
     const [selectedImage, setSelectedImage] = useState(null);
+    const [sortOrder, setSortOrder] = useState('newest');
 
     useEffect(() => {
         fetch(
@@ -27,36 +28,49 @@ const FlyerGallery = () => {
                 photosWithInfo.sort((a, b) => {
                     const dateA = new Date(a.dates.taken);
                     const dateB = new Date(b.dates.taken);
-                    return dateB - dateA;
+                    return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
                 });
                 setImages(photosWithInfo);
             });
         });
-    }, []);
+    }, [sortOrder]);
 
     const buildImageUrl = (image) => {
         return `https://farm${image.farm}.staticflickr.com/${image.server}/${image.id}_${image.secret}_n.jpg`;
     };
 
+    const handleSortChange = (event) => {
+        setSortOrder(event.target.value);
+    }
+
     return (
-    <div className="FlyerGallery">
-        {images.map((image) => (
-            <button
-            key={image.id}
-            onClick={() => setSelectedImage(buildImageUrl(image))}
-            className="image-wrapper"
-            >
-            <img src={buildImageUrl(image)} alt={image.title} />
-            </button>           
-        ))}
-        {selectedImage && (
-            <div
-            className="modal"
-            onClick={() => setSelectedImage(null)}
-            >
-                <img className="modal-image" src={selectedImage} alt="Selected" />
+        <div>
+            <div className="sort-container">
+                <label>Sort by: </label>
+                <select onChange={handleSortChange} value={sortOrder}>
+                <option value="newest">Newest</option>
+                <option value="oldest">Oldest</option>
+            </select>
             </div>
-        )}
+            <div className="FlyerGallery">
+                {images.map((image) => (
+                <button
+                key={image.id}
+                onClick={() => setSelectedImage(buildImageUrl(image))}
+                className="image-wrapper"
+             >
+                <img src={buildImageUrl(image)} alt={image.title} />
+                </button>           
+            ))}
+            {selectedImage && (
+                <div
+                className="modal"
+                onClick={() => setSelectedImage(null)}
+                >
+                <img className="modal-image" src={selectedImage} alt="Selected" />
+                </div>
+            )}
+            </div>
         </div>
     );
 };
