@@ -13,7 +13,24 @@ const FlyerGallery = () => {
         )
         .then((response) => response.json())
         .then((data) => {
-            setImages(data.photoset.photo);
+            const infoFetchPromise = data.photoset.photo.map((photo) => {
+                return fetch(
+                    `https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=${apiKey}&photo_id=${photo.id}&format=json&nojsoncallback=1`
+                ).then((response) => response.json());
+            });
+
+            Promise.all(infoFetchPromise).then((infoResponses) => {
+                const photosWithInfo = infoResponses.map((infoResponse, index) => {
+                    return {...data.photoset.photo[index], ...infoResponse.photo };
+                });
+
+                photosWithInfo.sort((a, b) => {
+                    const dateA = new Date(a.dates.taken);
+                    const dateB = new Date(b.dates.taken);
+                    return dateB - dateA;
+                });
+                setImages(photosWithInfo);
+            });
         });
     }, []);
 
