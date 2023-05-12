@@ -9,6 +9,9 @@ function App() {
       <div className="flyer-container">
         <FlyerGallery />
       </div>
+      <footer>
+        credits & email submission here?
+      </footer>
     </div>
   );
 }

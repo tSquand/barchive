@@ -50,7 +50,7 @@ const FlyerGallery = () => {
                         onClick={() => setSelectedImage(buildImageUrl(image))}
                         className="image-wrapper"
                     >
-                        <img src={buildImageUrl(image)} alt={image.title} />
+                        <img src={buildImageUrl(image)} alt={image.title} title={image.title} />
                     </button>           
                 ))}
                 {selectedImage && (

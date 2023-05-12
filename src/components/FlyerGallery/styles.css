@@ -39,3 +39,10 @@
 
   .sort-container {
     text-align: right;  }
+
+
+    @media (max-width: 600px) {
+      .FlyerGallery {
+        grid-template-columns: repeat(1, 1fr);
+      }
+    }
