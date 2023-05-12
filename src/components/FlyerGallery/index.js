@@ -4,7 +4,7 @@ import './styles.css';
 const apiKey = process.env.REACT_APP_FLICKR_API_KEY;
 
 const FlyerGallery = () => {
-    const [images, setImages] = useState ([]);
+    const [images, setImages] = useState([]);
     const [selectedImage, setSelectedImage] = useState(null);
     const [sortOrder, setSortOrder] = useState('newest');
 
@@ -14,24 +14,15 @@ const FlyerGallery = () => {
         )
         .then((response) => response.json())
         .then((data) => {
-            const infoFetchPromise = data.photoset.photo.map((photo) => {
-                return fetch(
-                    `https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=${apiKey}&photo_id=${photo.id}&format=json&nojsoncallback=1`
-                ).then((response) => response.json());
+            const photos = data.photoset.photo;
+
+            photos.sort((a, b) => {
+                const dateA = new Date(a.title);
+                const dateB = new Date(b.title);
+                return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
             });
 
-            Promise.all(infoFetchPromise).then((infoResponses) => {
-                const photosWithInfo = infoResponses.map((infoResponse, index) => {
-                    return {...data.photoset.photo[index], ...infoResponse.photo };
-                });
-
-                photosWithInfo.sort((a, b) => {
-                    const dateA = new Date(a.dates.taken);
-                    const dateB = new Date(b.dates.taken);
-                    return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
-                });
-                setImages(photosWithInfo);
-            });
+            setImages(photos);
         });
     }, [sortOrder]);
 
@@ -41,35 +32,35 @@ const FlyerGallery = () => {
 
     const handleSortChange = (event) => {
         setSortOrder(event.target.value);
-    }
+    };
 
     return (
         <div>
             <div className="sort-container">
                 <label>Sort by: </label>
                 <select onChange={handleSortChange} value={sortOrder}>
-                <option value="newest">Newest</option>
-                <option value="oldest">Oldest</option>
-            </select>
+                    <option value="newest">Newest</option>
+                    <option value="oldest">Oldest</option>
+                </select>
             </div>
             <div className="FlyerGallery">
                 {images.map((image) => (
-                <button
-                key={image.id}
-                onClick={() => setSelectedImage(buildImageUrl(image))}
-                className="image-wrapper"
-             >
-                <img src={buildImageUrl(image)} alt={image.title} />
-                </button>           
-            ))}
-            {selectedImage && (
-                <div
-                className="modal"
-                onClick={() => setSelectedImage(null)}
-                >
-                <img className="modal-image" src={selectedImage} alt="Selected" />
-                </div>
-            )}
+                    <button
+                        key={image.id}
+                        onClick={() => setSelectedImage(buildImageUrl(image))}
+                        className="image-wrapper"
+                    >
+                        <img src={buildImageUrl(image)} alt={image.title} />
+                    </button>           
+                ))}
+                {selectedImage && (
+                    <div
+                        className="modal"
+                        onClick={() => setSelectedImage(null)}
+                    >
+                        <img className="modal-image" src={selectedImage} alt="Selected" />
+                    </div>
+                )}
             </div>
         </div>
     );
