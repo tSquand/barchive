@@ -7,3 +7,11 @@
   width: 100%;
 }
 
+.barchive-header {
+  text-align: center;
+}
+
+.barchive-header img {
+  width: 50%;
+  height: auto;
+}

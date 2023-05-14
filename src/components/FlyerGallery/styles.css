@@ -1,14 +1,16 @@
 .FlyerGallery {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 20px;
+    grid-gap: 10px;
     width: 100%;
     margin: 0 auto; 
     background-color: lightcoral;
     padding-top: 20px;
     padding-bottom: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 77vh;
+    overflow-y: auto;
 }
 
 .image-wrapper {

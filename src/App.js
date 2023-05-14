@@ -1,17 +1,17 @@
 import './App.css';
 import FlyerGallery from './components/FlyerGallery';
+import barchiveHeader from './images/barchivehead.png';
 
 function App() {
 
   return (
     <div className="App">
-      <h1> The Barchive </h1>
+      <div className="barchive-header">
+        <img src={barchiveHeader} alt="The Barchive" />
+      </div>
       <div className="flyer-container">
         <FlyerGallery />
       </div>
-      <footer>
-        credits & email submission here?
-      </footer>
     </div>
   );
 }
