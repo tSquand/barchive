@@ -10,8 +10,9 @@
     padding-bottom: 20px;
     padding-left: 10px;
     padding-right: 10px;
-    height: 80vh;
+    height: 76vh;
     overflow-y: auto;
+    border: solid;
 }
 
 .image-wrapper {
