@@ -36,6 +36,7 @@ const FlyerGallery = () => {
 
     return (
         <div>
+            <div className="FlyerGallery">
             <div className="sort-container">
                 <label>Sort by: </label>
                 <select onChange={handleSortChange} value={sortOrder}>
@@ -43,7 +44,6 @@ const FlyerGallery = () => {
                     <option value="oldest">Oldest</option>
                 </select>
             </div>
-            <div className="FlyerGallery">
                 {images.map((image) => (
                     <button
                         key={image.id}

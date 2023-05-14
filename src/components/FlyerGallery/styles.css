@@ -1,15 +1,16 @@
 .FlyerGallery {
+    position: relative;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 10px;
     width: 100%;
     margin: 0 auto; 
-    background-color: lightcoral;
-    padding-top: 20px;
+    background-color: rgba(240, 128, 128, 0.95);
+    padding-top: 30px;
     padding-bottom: 20px;
     padding-left: 10px;
     padding-right: 10px;
-    height: 77vh;
+    height: 80vh;
     overflow-y: auto;
 }
 
@@ -40,10 +41,17 @@
   }
 
   .sort-container {
-    text-align: right;  }
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    text-align: right;
+    }
+  .sort-container label {
+    font-size: medium;
+  }
 
 
-    @media (max-width: 600px) {
+    @media (max-width: 900px) {
       .FlyerGallery {
         grid-template-columns: repeat(1, 1fr);
       }
