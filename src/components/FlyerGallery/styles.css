@@ -56,4 +56,9 @@
       .FlyerGallery {
         grid-template-columns: repeat(1, 1fr);
       }
+      
+      .modal-image {
+        transform: scale(1.2);
+      }
+
     }
