@@ -5,10 +5,12 @@ const apiKey = process.env.REACT_APP_FLICKR_API_KEY;
 
 const FlyerGallery = () => {
     const [images, setImages] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const [selectedImage, setSelectedImage] = useState(null);
     const [sortOrder, setSortOrder] = useState('newest');
 
     useEffect(() => {
+        setIsLoading(true);
         fetch(
             `https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=${apiKey}&photoset_id=72177720308120716&user_id=198342063@N08&format=json&nojsoncallback=1`
         )
@@ -23,6 +25,7 @@ const FlyerGallery = () => {
             });
 
             setImages(photos);
+            setIsLoading(false);
         });
     }, [sortOrder]);
 
@@ -33,6 +36,11 @@ const FlyerGallery = () => {
     const handleSortChange = (event) => {
         setSortOrder(event.target.value);
     };
+
+    if (isLoading) {
+        return <div>...</div>;
+    }
+
 
     return (
         <div>
